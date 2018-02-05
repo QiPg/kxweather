@@ -26,7 +26,7 @@ public class Utility {
                     province.setProvinceName(provinceObject.getString("name"));
                     province.setProvinceCode(provinceObject.getInt("id"));
                     province.save();
-                }
+            }
                 return true;
             }catch (Exception e){
                 e.printStackTrace();
@@ -36,10 +36,10 @@ public class Utility {
         return false;
     }
     //城市数据
-    private static boolean handelCityResponse(String response,int provinceId){
+    public static boolean handelCityResponse(String response,int provinceId){
         if (!TextUtils.isEmpty(response)){
             try{
-                JSONArray allCities=new JSONArray();
+                JSONArray allCities=new JSONArray(response);
                 for(int i=0;i<allCities.length();i++){
                     JSONObject cityObject=allCities.getJSONObject(i);
                     City city=new City();
@@ -56,10 +56,10 @@ public class Utility {
         return false;
     }
     //县数据
-    private static boolean handelConntyResponse(String response,int cityId){
+    public static boolean handelConntyResponse(String response,int cityId){
         if (!TextUtils.isEmpty(response)){
             try{
-                JSONArray allConnties=new JSONArray();
+                JSONArray allConnties=new JSONArray(response);
                 for(int i=0;i<allConnties.length();i++){
                     JSONObject countyObject=allConnties.getJSONObject(i);
                     County county=new County();
