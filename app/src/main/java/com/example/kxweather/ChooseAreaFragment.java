@@ -86,14 +86,15 @@ public class ChooseAreaFragment extends Fragment {
                 if (currentLevel == level_county) {
                     queryCities();
                 } else if (currentLevel == level_city) {
-                    queryProvince();
+                    queryProvinces();
                 }
             }
         });
+        queryProvinces();
     }
 
     //查询省份
-    private void queryProvince() {
+    private void queryProvinces() {
         titleText.setText("中国");
         backButton.setVisibility(View.GONE);
         provinceList = DataSupport.findAll(Province.class);
@@ -182,7 +183,7 @@ public class ChooseAreaFragment extends Fragment {
                         public void run() {
                             closeProgressDialog();
                             if ("province".equals(type)) {
-                                queryProvince();
+                                queryProvinces();
                             } else if ("city".equals(type)) {
                                 queryCities();
                             } else if ("county".equals(type)) {
