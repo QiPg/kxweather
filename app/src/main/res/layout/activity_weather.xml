@@ -44,6 +44,7 @@
         </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
     <fragment
+        android:layout_marginTop="20dp"
         android:id="@+id/choose_area_frament"
         android:name="com.example.kxweather.ChooseAreaFragment"
         android:layout_width="match_parent"
