@@ -51,6 +51,7 @@ public class WeatherActivity extends AppCompatActivity {
     private String mWeatherId;
     public DrawerLayout drawerLayout;
     private Button navButton;
+    private TextView nowTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +76,7 @@ public class WeatherActivity extends AppCompatActivity {
         comfortText = findViewById(R.id.comfort_text);//舒适度
         carWashText = findViewById(R.id.car_wash_text);//洗车指数
         sportText = findViewById(R.id.sport_text);//运动建议
+        nowTime=findViewById(R.id.now_time);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String weatherString = prefs.getString("weather", null);
         if (weatherString != null) {//缓存数据
@@ -152,11 +154,12 @@ public class WeatherActivity extends AppCompatActivity {
     //处理并展示Weather中的数据
     private void showWeatherInfo(Weather weather) {
         String cityName = weather.basic.cityName;
-        String updateTime = weather.basic.update.updateTime.split(" ")[1];
+        String[] updateTime = weather.basic.update.updateTime.split(" ");
         String degree = weather.now.temperature + "℃";
         String weatherInfo = weather.now.more.info;
         titleCtity.setText(cityName);
-        titleUpdateTime.setText("更新时间：" + updateTime);
+        titleUpdateTime.setText("更新时间：" + updateTime[1]);
+        nowTime.setText(updateTime[0]);
         degreeText.setText(degree);
         weatherInfoText.setText(weatherInfo);
         forecastLayout.removeAllViews();

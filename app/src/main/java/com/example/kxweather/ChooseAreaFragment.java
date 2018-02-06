@@ -110,7 +110,7 @@ public class ChooseAreaFragment extends Fragment {
 
     //查询省份
     private void queryProvinces() {
-        titleText.setText("中国");
+        titleText.setText("切换天气城市");
         backButton.setVisibility(View.GONE);
         provinceList = DataSupport.findAll(Province.class);
         if (provinceList.size() > 0) {
