@@ -1,6 +1,7 @@
 package com.example.kxweather;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.renderscript.RenderScript;
 import android.support.annotation.Nullable;
@@ -77,6 +78,12 @@ public class ChooseAreaFragment extends Fragment {
                 } else if (currentLevel == level_city) {
                     selectedCity = cityList.get(i);
                     queryCounties();
+                }else if(currentLevel==level_county){
+                    String weatherId=countyList.get(i).getWeatherId();
+                    Intent intent=new Intent(getActivity(),WeatherActivity.class);
+                    intent.putExtra("weather_id",weatherId);
+                    startActivity(intent);
+                    getActivity().finish();
                 }
             }
         });
