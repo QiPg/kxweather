@@ -1,5 +1,6 @@
 package com.example.kxweather;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -23,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.example.kxweather.gson.Forecast;
 import com.example.kxweather.gson.Weather;
+import com.example.kxweather.service.AutoUpdateService;
 import com.example.kxweather.util.HttpUtil;
 import com.example.kxweather.util.Utility;
 
@@ -177,6 +179,8 @@ public class WeatherActivity extends AppCompatActivity {
         carWashText.setText(carWash);
         sportText.setText(aport);
         weatherLayout.setVisibility(View.VISIBLE);
+        Intent intent=new Intent(this, AutoUpdateService.class);
+        startService(intent);
     }
     private void loadBingPic(){
         String requestBingPic="http://guolin.tech/api/bing_pic";
