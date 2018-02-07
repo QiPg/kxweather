@@ -113,9 +113,9 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     //根据id请求城市天气信息
-    public void requestWeather(final String weatherId) {
+    public void requestWeather(String weatherId) {
         mWeatherId = weatherId;
-        String weatherUrl = "http://guolin.tech/api/weather?cityid=" + weatherId + "&key=5180cdff818747a28a79a2be431ddd91";
+        String weatherUrl = "http://guolin.tech/api/weather?cityid=" + mWeatherId + "&key=5180cdff818747a28a79a2be431ddd91";
         HttpUtil.sendOkHttpRequest(weatherUrl, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -123,6 +123,7 @@ public class WeatherActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        Log.d("没有数据","");
                         Toast.makeText(WeatherActivity.this, "获取天气信息失败！", Toast.LENGTH_SHORT).show();
                         swipeRefresh.setRefreshing(false);
                     }
@@ -157,6 +158,7 @@ public class WeatherActivity extends AppCompatActivity {
         String[] updateTime = weather.basic.update.updateTime.split(" ");
         String degree = weather.now.temperature + "℃";
         String weatherInfo = weather.now.more.info;
+        System.out.println("题大大"+titleUpdateTime);
         titleCtity.setText(cityName);
         titleUpdateTime.setText("更新时间：" + updateTime[1]);
         nowTime.setText(updateTime[0]);
