@@ -52,6 +52,8 @@ public class WeatherActivity extends AppCompatActivity {
     public DrawerLayout drawerLayout;
     private Button navButton;
     private TextView nowTime;
+    private TextView aqiStr;
+    private TextView pm25Str;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +78,9 @@ public class WeatherActivity extends AppCompatActivity {
         comfortText = findViewById(R.id.comfort_text);//舒适度
         carWashText = findViewById(R.id.car_wash_text);//洗车指数
         sportText = findViewById(R.id.sport_text);//运动建议
-        nowTime=findViewById(R.id.now_time);
+        nowTime = findViewById(R.id.now_time);
+        aqiStr = findViewById(R.id.aqi_str);
+        pm25Str = findViewById(R.id.pm25_str);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String weatherString = prefs.getString("weather", null);
         if (weatherString != null) {//缓存数据
@@ -102,6 +106,7 @@ public class WeatherActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 requestWeather(mWeatherId);
+                loadBingPic();
             }
         });
         navButton.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +128,7 @@ public class WeatherActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Log.d("没有数据","");
+                        Log.d("没有数据", "");
                         Toast.makeText(WeatherActivity.this, "获取天气信息失败！", Toast.LENGTH_SHORT).show();
                         swipeRefresh.setRefreshing(false);
                     }
@@ -158,7 +163,6 @@ public class WeatherActivity extends AppCompatActivity {
         String[] updateTime = weather.basic.update.updateTime.split(" ");
         String degree = weather.now.temperature + "℃";
         String weatherInfo = weather.now.more.info;
-        System.out.println("题大大"+titleUpdateTime);
         titleCtity.setText(cityName);
         titleUpdateTime.setText("更新时间：" + updateTime[1]);
         nowTime.setText(updateTime[0]);
@@ -179,7 +183,9 @@ public class WeatherActivity extends AppCompatActivity {
         }
         if (weather.aqi != null) {
             aqiText.setText(weather.aqi.city.aqi);
+            aqiStr.setText(typeAQI(weather.aqi.city.aqi));
             pm25Text.setText(weather.aqi.city.pm25);
+            pm25Str.setText(typePM25(weather.aqi.city.pm25));
         }
         String comfort = "舒适度：" + weather.suggestion.comfort.info;
         String carWash = "洗车指数：" + weather.suggestion.carWash.info;
@@ -204,6 +210,7 @@ public class WeatherActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String bingPic = response.body().string();
+                System.out.println("图片地址"+bingPic);
                 SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(WeatherActivity.this).edit();
                 editor.putString("bing_pic", bingPic);
                 editor.apply();
@@ -216,4 +223,44 @@ public class WeatherActivity extends AppCompatActivity {
             }
         });
     }
+   //AQI标准
+    private String typeAQI(String str) {
+        int strInt = Integer.parseInt(str);
+        String string = "";
+        if (strInt < 51) {
+            string = "_优";
+        } else if (strInt < 101) {
+            string = "_良";
+        } else if (strInt < 151) {
+            string = "_轻度";
+        } else if (strInt < 201) {
+            string = "_中度";
+        } else if (strInt < 301) {
+            string = "_重度";
+        } else if (strInt > 300) {
+            string = "_严重";
+        }
+        return string;
+    }
+    //pm2.5标准
+    private String typePM25(String str) {
+        int strInt = Integer.parseInt(str);
+        String string = "";
+        if (strInt < 36) {
+            string = "_优";
+        } else if (strInt < 76) {
+            string = "_良";
+        } else if (strInt < 116) {
+            string = "_轻度";
+        } else if (strInt < 151) {
+            string = "_中度";
+        } else if (strInt < 251) {
+            string = "_重度";
+        } else if (strInt > 250) {
+            string = "_严重";
+        }
+        return string;
+    }
+
+
 }

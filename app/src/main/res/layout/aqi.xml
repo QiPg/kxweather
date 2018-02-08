@@ -14,10 +14,12 @@
     android:text="空气质量"
     android:textColor="#fff"
     android:textSize="20sp"/>
+
     <LinearLayout
         android:layout_margin="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -27,13 +29,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true">
-                <TextView
-                    android:id="@+id/aqi_text"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="#fff"
-                    android:textSize="40sp"/>
+                    android:orientation="horizontal"
+                   android:gravity="center_horizontal">
+                    <TextView
+                        android:id="@+id/aqi_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#fff"
+                        android:textSize="40sp"/>
+                        <TextView
+                            android:textColor="#fff"
+                            android:id="@+id/aqi_str"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15dp"/>
+                </LinearLayout>
                 <TextView
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
@@ -51,13 +64,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true">
-                <TextView
-                    android:id="@+id/pm25_text"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="#fff"
-                    android:textSize="40sp"/>
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:id="@+id/pm25_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#fff"
+                        android:textSize="40sp"/>
+                    <TextView
+                        android:textColor="#fff"
+                        android:id="@+id/pm25_str"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"/>
+                </LinearLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
